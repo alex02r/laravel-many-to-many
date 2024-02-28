@@ -73,8 +73,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $technologies = Technology::where('project_id', $project->id);
-        return view('admin.projects.show-project', compact('project','technologies'));
+        return view('admin.projects.show-project', compact('project'));
     }
 
     /**
@@ -118,6 +117,8 @@ class ProjectController extends Controller
         }
 
         $form_data['slug'] = Str::slug($form_data['name'], '-');
+        
+        unset($form_data['checks']);
         $project->update($form_data);
         return redirect()->route('admin.project.show', ['project'=>$project]);
     }

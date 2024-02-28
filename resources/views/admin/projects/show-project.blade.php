@@ -21,7 +21,7 @@
                             <p class="card-text">{{ $project->description}}</p>
                             <p class="card-text">Tipologia Associata: {{ $project->type ? $project->type->name : 'Nessun tipo'}}</p>
                             <p class="card-text">Tecnologie: 
-                                    @forelse ($technologies as $tech)
+                                    @forelse ($project->technologies as $tech)
                                         <span class="badge rounded-pill text-bg-{{ $tech->class_color}}"> {{ $tech->name }}</span>
                                     @empty
                                         Nessuna tecnologia associata

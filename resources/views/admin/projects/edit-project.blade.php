@@ -32,7 +32,7 @@
                             Tecnologie: 
                             @foreach ($technologies as $tech)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="checks[]" id="check-{{ $tech->id }}" value="{{ $tech->id }}" @checked(in_array($tech->id, old('checks', [])))>
+                                    <input class="form-check-input" type="checkbox" name="checks[]" id="check-{{ $tech->id }}" value="{{ $tech->id }}" @checked(in_array($tech->id, old('checks', [])) || in_array($tech->id, $project->technologies->keyby('id')->keys()->toArray()))>
                                     <label class="form-check-label" for="check-{{ $tech->id }}">{{ $tech->name }}</label>
                                 </div>
                             @endforeach
