@@ -35,7 +35,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create-project', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create-project', compact('types', 'technologies'));
     }
 
     /**
@@ -52,6 +53,10 @@ class ProjectController extends Controller
         if ($request->hasFile('img')) {
             $img_path = Storage::disk('public')->put('uploads', $form_data['img']);
             $form_data['img'] = $img_path;
+        }
+
+        if ($request->has('checks')) {
+            $new_project->technologies()->sync($form_data['checks']);
         }
 
         $new_project->fill($form_data);
