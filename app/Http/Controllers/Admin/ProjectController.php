@@ -86,7 +86,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit-project', compact('project','types'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit-project', compact('project','types', 'technologies'));
     }
 
     /**
@@ -108,6 +109,12 @@ class ProjectController extends Controller
         if ($request->hasFile('img')) {
             $img_path = Storage::disk('public')->put('uploads', $form_data['img']);
             $form_data['img'] = $img_path;
+        }
+
+        if ($request->has('checks')) {
+            $project->technologies()->sync($form_data['checks']);
+        }else{
+            $project->technologies()->sync([]);
         }
 
         $form_data['slug'] = Str::slug($form_data['name'], '-');

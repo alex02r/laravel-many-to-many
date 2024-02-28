@@ -28,6 +28,15 @@
                             <label for="description" class="form-label">Modifica La descrizione:</label>
                             <textarea name="description" id="description" class="form-control">{{ old('description') ?? $project['description'] }}</textarea>
                         </div>
+                        <div class="mb-3">
+                            Tecnologie: 
+                            @foreach ($technologies as $tech)
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="checks[]" id="check-{{ $tech->id }}" value="{{ $tech->id }}" @checked(in_array($tech->id, old('checks', [])))>
+                                    <label class="form-check-label" for="check-{{ $tech->id }}">{{ $tech->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
                         <div class="d-flex gap-4 mb-3">
                             <div class="">
                                 <label for="start_date">Modifica data inizio</label>
